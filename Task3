@@ -1,0 +1,27 @@
+#include "DHT.h"
+
+#define DHTPIN 2
+#define DHTTYPE DHT22
+
+DHT dht(DHTPIN, DHTTYPE);
+
+void setup() {
+  Serial.begin(9600);
+  dht.begin();
+  Serial.println("Temperature Monitoring System");
+}
+
+void loop() {
+  float temp = dht.readTemperature();
+
+  if (isnan(temp)) {
+    Serial.println("Failed to read temperature");
+    return;
+  }
+
+  Serial.print("Temperature: ");
+  Serial.print(temp);
+  Serial.println(" °C");
+
+  delay(2000);
+}
